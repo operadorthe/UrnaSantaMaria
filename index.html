@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#151e1a">
+<title>Urna - A Estação · Verbo da Vida Santa Maria</title>
+<link rel="icon" href="icone.png">
+<style>
+:root{color-scheme:dark;--verde:#151e1a;--verde2:#27382e;--creme:#fffad5;--pess:#fbe5d5;--lar:#e8873a;--rosa:#d9607a;--azul:#2fa3a0;--ouro:#e7c340;--card:#f7f0dc;--tx:#1b241f;--mut:#6b7468;--line:#ded5b8}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--verde);color:var(--creme);font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;line-height:1.45;padding-bottom:env(safe-area-inset-bottom)}
+button,input,select{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.top{background:linear-gradient(rgba(21,30,26,.45),rgba(21,30,26,.92)),url(fundo.jpg) center/cover;padding:calc(18px + env(safe-area-inset-top)) 16px 20px;text-align:center;border-bottom:3px solid var(--lar)}
+.top img{height:clamp(44px,12vw,68px);width:auto}
+.top p{margin:8px 0 0;font-size:clamp(.82rem,2.6vw,1rem);color:var(--pess)}
+.wrap{max-width:1040px;margin:0 auto;padding:14px 12px 28px;display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.wrap{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start}}
+.urna{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:clamp(10px,2.85vw,15px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:.9em;padding:1em;max-width:620px;margin:0 auto;width:100%;background:linear-gradient(#efe6cf,#d6cbac);border:1px solid #a59c82;border-radius:1.2em;box-shadow:0 12px 30px rgba(0,0,0,.45);color:#111}
+.tela{background:#fffdf0;border:.4em solid #3b4a40;border-radius:.5em;padding:.8em;min-height:23em;display:flex;flex-direction:column;box-shadow:inset 0 0 .6em rgba(0,0,0,.25)}
+.cargo{font-size:.68em;letter-spacing:.08em;color:#333;font-weight:700}
+.titulo{font-size:1.2em;font-weight:800;margin:.1em 0 .4em}
+.num{display:flex;gap:.4em;align-items:center;margin:.3em 0 .6em}.num .l{font-size:.78em;margin-right:.3em}
+.box{width:1.6em;height:1.9em;border:.12em solid #111;font-size:1.5em;font-weight:800;display:flex;align-items:center;justify-content:center;background:#fff}
+.box.cur{border-color:var(--lar);box-shadow:0 0 0 .1em rgba(232,135,58,.5)}
+.info{display:flex;gap:.6em;flex:1;align-items:flex-start;flex-wrap:wrap}.txt{font-size:.82em;flex:1 1 7em;line-height:1.4}
+.foto{position:relative;overflow:hidden;width:6em;height:7.5em;border:.1em solid #333;background:linear-gradient(160deg,var(--lar),var(--rosa));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;flex:none}
+.foto span{font-size:2.2em}.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rodape{border-top:.08em solid #888;margin-top:.5em;padding-top:.4em;font-size:.62em;color:#333;line-height:1.35}
+.aviso{font-size:1.2em;font-weight:800;text-align:center;margin:auto 0}.aviso small{font-weight:500;font-size:.7em}
+.fim{font-size:3.4em;font-weight:900;text-align:center;margin:auto 0;letter-spacing:.1em}
+.tec{background:var(--verde2);border-radius:.7em;padding:.7em;display:flex;flex-direction:column;gap:.6em;box-shadow:inset 0 0 .5em rgba(0,0,0,.6)}
+.tec img{width:60%;align-self:center;opacity:.9}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.4em}
+.k{background:#0d1310;color:var(--creme);border:0;border-radius:.35em;height:2.6em;font-size:1.15em;font-weight:700;cursor:pointer;box-shadow:0 .15em 0 #000}
+.k:active,.a:active{transform:translateY(.1em)}.k.z{grid-column:2}
+.ac{display:grid;grid-template-columns:1fr 1fr;gap:.4em;margin-top:.2em}
+.a{border:0;border-radius:.35em;min-height:3em;font-weight:800;font-size:.62em;cursor:pointer;box-shadow:0 .2em 0 rgba(0,0,0,.6)}
+.branco{background:var(--creme);color:#111}.corrige{background:var(--lar);color:#111}.confirma{grid-column:1/-1;background:var(--azul);color:#06201f;min-height:3.4em;font-size:.72em}
+:focus-visible{outline:3px solid var(--ouro);outline-offset:2px}
+.card{background:var(--card);color:var(--tx);border-radius:18px;padding:16px}
+.card h2{margin:0 0 10px;font-size:1.05rem}
+#busca{width:100%;padding:11px 12px;border-radius:12px;border:1.5px solid var(--line);font:inherit;background:#fff;color:var(--tx);margin:6px 0 4px}
+.dica{font-size:.8rem;color:var(--mut);margin:4px 0 8px}
+#lista details{border:1px solid var(--line);border-radius:12px;margin:6px 0;overflow:hidden}
+#lista summary{cursor:pointer;padding:10px 12px;font-weight:700;background:rgba(232,135,58,.14);list-style:none;display:flex;justify-content:space-between}
+#lista summary::-webkit-details-marker{display:none}#lista summary span{color:#9a4e12}
+#lista .it{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:transparent;color:var(--tx);border:0;border-top:1px solid var(--line);padding:9px 12px;font-size:.95rem;cursor:pointer}
+#lista .it:hover{background:rgba(47,163,160,.14)}
+#lista .it b{min-width:2em;background:var(--verde2);color:var(--creme);border-radius:8px;text-align:center;padding:2px 4px;font-size:.9rem}
+@media(min-width:900px){#lista{max-height:560px;overflow:auto}}
+.modal{display:none;position:fixed;inset:0;background:rgba(10,14,12,.8);align-items:center;justify-content:center;padding:14px;z-index:10}
+.mbox{background:var(--card);color:var(--tx);max-width:540px;width:100%;max-height:92vh;overflow:auto;border-radius:20px;padding:22px;border-top:5px solid var(--lar)}
+.mbox h2{margin:0 0 8px;font-size:1.25rem}.mbox h3{font-size:.95rem;margin:14px 0 6px}
+.nota{background:rgba(47,163,160,.14);border:1px solid var(--azul);border-radius:12px;padding:10px 12px;font-size:.88rem;margin:8px 0}
+.regras{background:var(--verde2);color:var(--creme);border-radius:12px;padding:12px 14px;margin:8px 0;font-size:.92rem;border-left:5px solid var(--lar)}
+.regras ol{margin:6px 0 0;padding-left:20px}.regras li{margin:6px 0}
+.mbox select,.mbox input[type=text]{width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--line);font-size:1rem;background:#fff;color:var(--tx)}
+.er{color:#b3261e;font-size:.88rem;min-height:1.3em;margin:8px 0 0;font-weight:600}
+.btn{background:var(--verde);color:var(--creme);border:2px solid var(--lar);border-radius:12px;padding:12px 20px;font-size:1rem;font-weight:800;cursor:pointer;margin:10px 8px 0 0}
+.btn.pri{background:var(--lar);color:#161616}
+.passo{display:inline-block;background:var(--azul);color:#06201f;font-weight:800;font-size:.78rem;border-radius:999px;padding:3px 12px;margin:0 0 10px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<header class="top"><img src="logo-horizontal.png" alt="A Estação"><p>Igreja Verbo da Vida - Santa Maria · escolha os 3 melhores voluntários, é só uma brincadeira entre nós</p></header>
+<main class="wrap">
+<section class="urna" aria-label="Urna eletrônica"><div class="tela" id="tela"></div>
+<div class="tec"><img src="icone.png" alt=""><div class="grid3" id="grid"></div>
+<div class="ac"><button class="a branco" onclick="branco()">BRANCO</button><button class="a corrige" onclick="corrige()">CORRIGE</button><button class="a confirma" onclick="confirma()">CONFIRMA</button></div></div></section>
+<aside class="card"><div id="regras"></div><h2 style="margin-top:16px">Voluntários e números</h2><input id="busca" type="search" placeholder="Buscar voluntário pelo nome" autocomplete="off" oninput="lista(this.value)"><p class="dica">Toque no nome para escolher o número na urna.</p><div id="lista"></div></aside>
+</main>
+<div class="modal" id="modal"><div class="mbox" id="mb"></div></div>
+<script>
+/* ===== DADOS DE EXEMPLO: troque pelas listas de Santa Maria ===== */
+const P=[{"n":"01","nome":"Voluntário Exemplo A","deps":["Louvor"]},{"n":"02","nome":"Voluntário Exemplo B","deps":["Louvor","Comunicação"]},{"n":"03","nome":"Voluntário Exemplo C","deps":["Comunicação"]},{"n":"04","nome":"Voluntário Exemplo D","deps":["Recepção"]},{"n":"05","nome":"Voluntário Exemplo E","deps":["Recepção","Crianças"]},{"n":"06","nome":"Voluntário Exemplo F","deps":["Crianças"]}];
+const LID=[["Líder Exemplo 1 (Louvor)","Voluntário Exemplo A"],["Líder Exemplo 2 (Recepção)",null]]; // [rótulo na lista, nome igual ao de P (ou null se não for voluntário)]
+const FIREBASE_CONFIG={apiKey:"COLE_AQUI",authDomain:"COLE_AQUI",projectId:"COLE_AQUI",appId:"COLE_AQUI"}; // Firebase: Configurações do projeto > Seus apps > Web
+const COLECAO="votos_voluntarios"; // nome da coleção no Firestore
+const CHAVE="santamaria_votou_vol",LIBERAR="troque-esta-senha"; // para liberar um aparelho: abra o site com ?liberar=SENHA
+/* ================================================================= */
+const DEPS=[...new Set(P.flatMap(p=>p.deps))];
+try{if(new URLSearchParams(location.search).get("liberar")===LIBERAR)localStorage.removeItem(CHAVE)}catch(e){}
+const jaVotou=()=>{try{return localStorage.getItem(CHAVE)==="1"}catch(e){return false}};
+const marcar=()=>{try{localStorage.setItem(CHAVE,"1")}catch(e){}};
+let d="",modo="v",ident=false,NOME="",NOMEL="",ESC=[],ESCN=[],MEU="";
+const $=id=>document.getElementById(id);
+const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const cand=()=>d.length===2?P.find(p=>p.n===d)||null:null;
+const rot=p=>p.n+" - "+p.nome;
+function beep(f,t){try{const c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+t/1000)}catch(e){}}
+let temMp3=true;
+function somConfirma(){let u=false;const fb=()=>{if(!u){u=true;temMp3=false;beep(1000,900)}};if(!temMp3){beep(1000,900);return}try{const a=new Audio("confirma.mp3");a.onerror=fb;const p=a.play();if(p&&p.catch)p.catch(fb)}catch(e){fb()}}
+const EXT=[".jpg",".png",".jpeg",".JPG",".PNG"]; // fotos: NN.jpg (número do voluntário)
+function fe(i){const n=(+i.dataset.n||0)+1;i.dataset.n=n;if(n<EXT.length)i.src=i.dataset.b+EXT[n];else i.style.display="none"}
+function render(){
+const t=$("tela");
+if(jaVotou()&&modo!=="x"){t.innerHTML='<div class="aviso">VOCÊ JÁ VOTOU<br><small>Obrigado por participar!</small></div>';return}
+if(!ident&&modo!=="x"){t.innerHTML='<div class="aviso">IDENTIFIQUE-SE<br>PARA VOTAR</div>';return}
+if(modo==="x"){t.innerHTML='<div class="fim">FIM</div>';return}
+let h='<div class="cargo">SEU VOTO PARA</div><div class="titulo">Voluntário</div><div><span class="passo">Voto '+(ESC.length+1)+' de 3</span></div>';
+if(modo==="b")h+='<div class="aviso">VOTO EM BRANCO</div>';
+else{
+h+='<div class="num"><span class="l">Número:</span>';
+for(let i=0;i<2;i++)h+='<div class="box'+(i===d.length?' cur':'')+'">'+(d[i]||"")+'</div>';
+h+='</div>';
+if(d.length===2){const c=cand();
+if(!c)h+='<div class="info"><div class="txt"><b>NÚMERO ERRADO</b><br><b>VOTO NULO</b></div></div>';
+else h+='<div class="info"><div class="txt"><b>Voluntário:</b> '+c.nome+'<br><b>Departamento:</b> '+c.deps.join(", ")+(ESCN.includes(d)?'<br><b style="color:#b91c1c">Você já escolheu este voluntário.</b>':'')+(d===MEU?'<br><b style="color:#b91c1c">Líder não vota em si mesmo.</b>':'')+'</div><div class="foto"><span>'+c.nome[0]+'</span><img src="'+d+'.jpg" data-b="'+d+'" alt="" onerror="fe(this)"></div></div>'}
+}
+h+='<div class="rodape">'+(ESCN.filter(x=>x).length?'Já escolhidos: '+ESCN.filter(x=>x).join(", ")+' · ':'')+'CONFIRMA registra o voto · CORRIGE reinicia</div>';
+t.innerHTML=h;
+}
+const bloq=()=>jaVotou()||!ident;
+function tecla(x){if(modo!=="v"||d.length>=2||bloq())return;d+=x;beep(900,80);render()}
+function corrige(){if(modo==="x"||bloq())return;d="";modo="v";beep(500,80);render()}
+function branco(){if(modo==="x"||bloq())return;d="";modo="b";beep(700,80);render()}
+function confirma(){
+if(modo==="x"||bloq())return;
+let r,c="";
+if(modo==="b")r="Voto em branco";
+else{
+if(d.length<2){beep(300,200);return}
+const p=cand();
+if(!p)r="Voto nulo";
+else{if(ESCN.includes(d)||d===MEU){beep(300,300);return}r=rot(p);c=d}
+}
+ESC.push(r);ESCN.push(c);d="";modo="v";somConfirma();
+if(ESC.length<3)render();else revisar();
+}
+function revisar(){
+modo="x";render();
+$("mb").innerHTML='<h2>Confira seus 3 votos</h2><ol>'+ESC.map(x=>'<li>'+x+'</li>').join("")+'</ol><button class="btn pri" onclick="enviar()">Enviar meus votos</button><button class="btn" onclick="refazer()">Refazer</button>';
+$("modal").style.display="flex";
+}
+function refazer(){ESC=[];ESCN=[];d="";modo="v";$("modal").style.display="none";render()}
+async function postar(){
+try{const id=norm(NOMEL||NOME).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+await window.fb.enviar(COLECAO,id,{quem:NOME,votos:ESC});return "ok"}
+catch(e){return e&&e.code==="permission-denied"?"dup":"erro"}
+}
+async function enviar(){
+$("mb").innerHTML='<h2>Enviando seus votos…</h2><p>Aguarde um instante.</p>';
+const r=await postar();
+if(r==="dup"){$("mb").innerHTML='<h2>Este nome já votou</h2><p>Cada pessoa vota uma única vez. Se você escolheu o nome errado, avise o responsável.</p><button class="btn pri" onclick="refazer();abrirIdent()">Voltar</button>';return}
+if(r==="ok"){marcar();beep(600,150);setTimeout(()=>beep(600,350),180);$("mb").innerHTML='<h2>Votos registrados</h2><ol>'+ESC.map(x=>'<li>'+x+'</li>').join("")+'</ol><p>Obrigado por participar!</p><button class="btn pri" onclick="novo()">Concluir</button>'}
+else $("mb").innerHTML='<h2>Não foi possível enviar</h2><p>Verifique sua internet e tente de novo.</p><button class="btn pri" onclick="enviar()">Tentar de novo</button>';
+}
+function novo(){$("modal").style.display="none";d="";modo="v";render()}
+const REGRAS='<div class="regras"><b>Regras da brincadeira</b><ol><li><b>Cada líder tem direito a 3 votos.</b> Escolha os voluntários que mais se destacaram, de qualquer departamento.</li><li><b>Líder não vota em si mesmo.</b> Se você também é voluntário, indique outras pessoas.</li></ol></div>';
+function tn(){$("ou").style.display=$("ld").value==="o"?"block":"none"}
+function abrirIdent(){
+$("mb").innerHTML='<h2>Antes de votar</h2>'+REGRAS
++'<div class="nota"><b>Informação confidencial.</b> Seu nome fica registrado junto dos seus votos e só o responsável pela votação tem acesso. Ele serve apenas para controle, para evitar votos de fora e votos repetidos.</div>'
++'<h3>Quem é você?</h3><select id="ld" onchange="tn()"><option value="">Escolha o seu nome…</option>'+LID.map((x,i)=>'<option value="'+i+'">'+x[0]+'</option>').join("")+'<option value="o">Meu nome não está na lista</option></select>'
++'<div id="ou" style="display:none"><h3>Digite o seu nome completo</h3><input id="on" type="text" maxlength="80" autocomplete="name"></div>'
++'<p class="er" id="er"></p><button class="btn pri" onclick="entrar()">Começar a votar</button>';
+$("modal").style.display="flex";
+}
+const tit=s=>s.toLowerCase().split(" ").map(p=>["de","da","do","dos","das","e"].includes(p)?p:p.charAt(0).toUpperCase()+p.slice(1)).join(" ");
+function entrar(){
+const v=$("ld").value;
+if(v===""){$("er").textContent="Escolha o seu nome na lista de líderes.";return}
+if(v==="o"){
+const n=$("on").value.trim().replace(/\s+/g," ");
+if(n.length<5||n.indexOf(" ")<0){$("er").textContent="Digite o seu nome completo.";return}
+NOMEL=tit(n);NOME="Outro: "+NOMEL;const p=P.find(q=>norm(q.nome)===norm(NOMEL));MEU=p?p.n:"";
+}else{
+const x=LID[+v];NOME=x[0];NOMEL="";const p=x[1]?P.find(q=>q.nome===x[1]):null;MEU=p?p.n:"";
+}
+ident=true;$("modal").style.display="none";render();
+}
+const item=p=>'<button class="it" onclick="pick(\''+p.n+'\')"><b>'+p.n+'</b><span>'+p.nome+'</span></button>';
+function lista(f){
+const q=norm(f||"").trim();let h="";
+if(q){const r=P.filter(p=>norm(p.nome).includes(q));h=r.length?r.map(item).join(""):'<p class="dica">Nenhum voluntário encontrado.</p>'}
+else h=DEPS.map(dep=>{const ps=P.filter(p=>p.deps.includes(dep));return '<details><summary>'+dep+' <span>'+ps.length+'</span></summary>'+ps.map(item).join("")+'</details>'}).join("");
+$("lista").innerHTML=h;
+}
+function pick(n){if(bloq()||modo==="x")return;d=n;modo="v";render();beep(900,80);try{$("tela").scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
+const g=$("grid");
+[1,2,3,4,5,6,7,8,9,0].forEach(n=>{const b=document.createElement("button");b.className="k"+(n===0?" z":"");b.textContent=n;b.onclick=()=>tecla(String(n));g.appendChild(b)});
+document.addEventListener("keydown",e=>{
+if($("modal").style.display==="flex"||e.target.id==="busca")return;
+if(e.key>="0"&&e.key<="9")tecla(e.key);else if(e.key==="Enter")confirma();else if(e.key==="Backspace")corrige();else if(e.key==="b"||e.key==="B")branco();
+});
+$("regras").innerHTML=REGRAS;
+lista("");render();
+if(!jaVotou())abrirIdent();
+</script>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getFirestore,doc,setDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const db=getFirestore(initializeApp(FIREBASE_CONFIG));
+window.fb={enviar:(col,id,dados)=>setDoc(doc(db,col,id),{...dados,t:serverTimestamp()})};
+</script></body></html>
