@@ -70,14 +70,11 @@ button,input,select{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-s
 <aside class="card"><div id="regras"></div><h2 style="margin-top:16px">Voluntários e números</h2><input id="busca" type="search" placeholder="Buscar voluntário pelo nome" autocomplete="off" oninput="lista(this.value)"><p class="dica">Toque no nome para escolher o número na urna.</p><div id="lista"></div></aside>
 </main>
 <div class="modal" id="modal"><div class="mbox" id="mb"></div></div>
+<script src="dados.js"></script>
 <script>
-/* ===== DADOS DE EXEMPLO: troque pelas listas de Santa Maria ===== */
-const P=[{"n":"01","nome":"Voluntário Exemplo A","deps":["Louvor"]},{"n":"02","nome":"Voluntário Exemplo B","deps":["Louvor","Comunicação"]},{"n":"03","nome":"Voluntário Exemplo C","deps":["Comunicação"]},{"n":"04","nome":"Voluntário Exemplo D","deps":["Recepção"]},{"n":"05","nome":"Voluntário Exemplo E","deps":["Recepção","Crianças"]},{"n":"06","nome":"Voluntário Exemplo F","deps":["Crianças"]}];
-const LID=[["Líder Exemplo 1 (Louvor)","Voluntário Exemplo A"],["Líder Exemplo 2 (Recepção)",null]]; // [rótulo na lista, nome igual ao de P (ou null se não for voluntário)]
 const FIREBASE_CONFIG={apiKey:"AIzaSyBNoRLCeJt4AZIgDwY_FV1de3jWcIPGjZI",authDomain:"urnaestacao.firebaseapp.com",projectId:"urnaestacao",storageBucket:"urnaestacao.firebasestorage.app",messagingSenderId:"329046413879",appId:"1:329046413879:web:14ec9a1e677a202bca65b2"}; // Firebase: Configurações do projeto > Seus apps > Web
 const COLECAO="votos_voluntarios"; // nome da coleção no Firestore
 const CHAVE="santamaria_votou_vol",LIBERAR="troque-esta-senha"; // para liberar um aparelho: abra o site com ?liberar=SENHA
-/* ================================================================= */
 const DEPS=[...new Set(P.flatMap(p=>p.deps))];
 try{if(new URLSearchParams(location.search).get("liberar")===LIBERAR)localStorage.removeItem(CHAVE)}catch(e){}
 const jaVotou=()=>{try{return localStorage.getItem(CHAVE)==="1"}catch(e){return false}};

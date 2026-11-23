@@ -10,9 +10,14 @@
 body{margin:0;background:var(--verde);color:var(--creme);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.4;padding-bottom:env(safe-area-inset-bottom)}
 .top{background:linear-gradient(rgba(21,30,26,.45),rgba(21,30,26,.92)),url(fundo.jpg) center/cover;padding:calc(16px + env(safe-area-inset-top)) 16px 18px;text-align:center;border-bottom:3px solid var(--lar)}
 .top img{height:clamp(40px,10vw,60px)}.top p{margin:6px 0 0;font-size:.9rem;color:var(--pess)}
-main{max-width:1000px;margin:0 auto;padding:14px 12px 40px}
+main{max-width:1040px;margin:0 auto;padding:14px 12px 40px}
+.bar{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.seg,.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.seg button,.tabs button{border:1.5px solid var(--verde2);background:var(--verde2);color:var(--creme);border-radius:999px;padding:9px 15px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer}
+.seg button.on{background:var(--lar);color:#161616;border-color:var(--lar)}.tabs button.on{background:var(--creme);color:var(--verde);border-color:var(--creme)}
 .card{background:var(--card);color:var(--tx);border-radius:16px;padding:16px;margin-bottom:12px}
 .card h2{margin:0 0 10px;font-size:1.05rem}
+.grid2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}.grid2 .card{margin:0}.grid2{margin-bottom:12px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
 .kpi{background:var(--card);color:var(--tx);border-radius:14px;padding:12px 14px;border-left:5px solid var(--lar)}
 .kpi b{display:block;font-size:1.8rem;line-height:1.1}.kpi span{font-size:.78rem;color:var(--mut)}
@@ -20,13 +25,16 @@ main{max-width:1000px;margin:0 auto;padding:14px 12px 40px}
 .pod{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end}
 .pod div{background:rgba(232,135,58,.16);border:2px solid var(--lar);border-radius:14px;padding:10px 6px;text-align:center;font-size:.85rem}
 .pod div:nth-child(1){order:2;padding-top:22px}.pod div:nth-child(2){order:1}.pod div:nth-child(3){order:3}.pod b{display:block;font-size:1.5rem}
-.row{display:flex;align-items:center;gap:10px;margin:8px 0}.row .nm{flex:0 0 40%;min-width:0;font-size:.9rem}
+.comp{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.9rem}
+.row{display:flex;align-items:center;gap:10px;margin:9px 0}.row .nm{flex:0 0 42%;min-width:0;font-size:.9rem}.row .nm small{display:block;color:var(--mut)}
 .bw{flex:1;background:#e3d8b8;height:16px;border-radius:8px;overflow:hidden}.bw i{display:block;height:100%;background:var(--lar);border-radius:8px}
-.row.p3 .bw i{background:var(--azul)}.row .v{flex:0 0 84px;text-align:right;font-weight:800;font-size:.88rem;color:var(--tx)}
-.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:.74rem;color:var(--mut)}
-.mut{color:var(--mut)}.live{font-size:.82rem;margin:0 0 10px;color:var(--pess)}
+.row.p3 .bw i{background:var(--azul)}.row .v{flex:0 0 92px;text-align:right;font-weight:800;font-size:.88rem}
+.sel{background:var(--azul);color:#06201f;border-radius:6px;font-size:.65rem;font-weight:800;padding:1px 6px;margin-left:6px}
+.tag{display:inline-block;border-radius:6px;font-size:.74rem;padding:2px 8px;font-weight:700;margin:2px}.tag.e{background:#fbd5d0;color:#8c1d14}.tag.o{background:#cfeee9;color:#0f5b57}.tag.w{background:#fde9bf;color:#8a4b0c}
+.tw{overflow-x:auto;margin:8px 0}table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:.74rem;color:var(--mut)}
+.mut{color:var(--mut)}.live{font-size:.82rem;color:var(--pess)}
 .btn{background:var(--verde);color:var(--creme);border:2px solid var(--lar);border-radius:10px;padding:10px 16px;font:inherit;font-weight:800;cursor:pointer}
-.btn.pri{background:var(--lar);color:#161616}
+.btn.pri{background:var(--lar);color:#161616}.btn.s{padding:5px 10px;font-size:.78rem}
 input{width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);font:inherit;background:#fff;color:var(--tx);margin:6px 0 10px}
 .er{color:#b3261e;font-weight:600;min-height:1.3em}
 :focus-visible{outline:3px solid #e7c340;outline-offset:2px}
@@ -35,38 +43,73 @@ input{width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid var(--l
 <body>
 <header class="top"><img src="logo-horizontal.png" alt="A Estação"><p>Painel de apuração · uso exclusivo do responsável</p></header>
 <main id="app"></main>
+<script src="dados.js"></script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import{getFirestore,collection,onSnapshot,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import{getFirestore,collection,onSnapshot,query,orderBy,doc,deleteDoc}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const cfg={apiKey:"AIzaSyBNoRLCeJt4AZIgDwY_FV1de3jWcIPGjZI",authDomain:"urnaestacao.firebaseapp.com",projectId:"urnaestacao",storageBucket:"urnaestacao.firebasestorage.app",messagingSenderId:"329046413879",appId:"1:329046413879:web:14ec9a1e677a202bca65b2"};
-const COLECAO="votos_voluntarios";
+const COL={lideres:"votos_liderados",voluntarios:"votos_voluntarios"},NOMES={lideres:"Liderados → Líderes",voluntarios:"Líderes → Voluntários"};
+const ABAS=[["apuracao","Apuração"],["part","Participação"],["reg","Registros"],["al","Conferência"]];
 const auth=getAuth(initializeApp(cfg)),db=getFirestore(auth.app),A=document.getElementById("app");
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const pct=(a,b)=>b?(a/b*100).toFixed(1).replace(".",",")+"%":"0%";
-let un=null;
-function login(msg){
-A.innerHTML='<div class="card" style="max-width:420px;margin:20px auto"><h2>Entrar como administrador</h2><label>E-mail<input id="em" type="email" autocomplete="username"></label><label>Senha<input id="se" type="password" autocomplete="current-password"></label><p class="er" id="er">'+esc(msg||"")+'</p><button class="btn pri" id="go">Entrar</button></div>';
+const num=i=>String(i+1).padStart(2,"0"),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct=(a,b)=>b?(a/b*100).toFixed(1).replace(".",",")+"%":"0%",norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const CAND={lideres:Object.fromEntries(L.map((c,i)=>[num(i),{n:num(i),nome:c[0],dep:c[1]||""}])),voluntarios:Object.fromEntries(P.map(p=>[p.n,{n:p.n,nome:p.nome,dep:p.deps.join(", ")}]))};
+const code=v=>{v=String(v||"");if(/branco/i.test(v))return"B";if(/nulo/i.test(v))return"N";const m=v.match(/^(\d{1,3})/);return m?m[1].padStart(2,"0"):null};
+let tipo="lideres",aba="apuracao",busca="",logado=false,uns=[],DATA={lideres:[],voluntarios:[]},ESP={lideres:"",voluntarios:""};
+try{ESP=Object.assign(ESP,JSON.parse(localStorage.getItem("painel_esp")||"{}"))}catch(e){}
+const conv=d=>{const x=d.data();return{id:d.id,t:x.t&&x.t.toDate?x.t.toDate():null,who:x.quem||"",dep:x.dep||"",lider:x.lider||"",raw:x.votos||[],v:[0,1,2].map(i=>code((x.votos||[])[i]))}};
+function login(){
+A.innerHTML='<div class="card" style="max-width:420px;margin:20px auto"><h2>Entrar como administrador</h2><label>E-mail<input id="em" type="email" autocomplete="username"></label><label>Senha<input id="se" type="password" autocomplete="current-password"></label><p class="er" id="er"></p><button class="btn pri" id="go">Entrar</button></div>';
 const ir=async()=>{try{await signInWithEmailAndPassword(auth,document.getElementById("em").value.trim(),document.getElementById("se").value)}catch(e){document.getElementById("er").textContent="Não foi possível entrar. Confira o e-mail e a senha."}};
 document.getElementById("go").onclick=ir;document.getElementById("se").onkeydown=e=>{if(e.key==="Enter")ir()};
 }
 onAuthStateChanged(auth,u=>{
-if(un){un();un=null}
+uns.forEach(f=>f());uns=[];logado=!!u;
 if(!u)return login();
 A.innerHTML='<p class="live">Carregando votos…</p>';
-un=onSnapshot(query(collection(db,COLECAO),orderBy("t","desc")),s=>mostrar(s.docs.map(d=>d.data())),()=>{A.innerHTML='<div class="card"><h2>Sem permissão para ler os votos</h2><p>Confira se as regras do Firestore foram publicadas e se você entrou com o usuário administrador.</p><button class="btn" id="sair">Sair</button></div>';document.getElementById("sair").onclick=()=>signOut(auth)});
+uns=Object.keys(COL).map(k=>onSnapshot(query(collection(db,COL[k]),orderBy("t","desc")),s=>{DATA[k]=s.docs.map(conv);refresh()},()=>{A.innerHTML='<div class="card"><h2>Sem permissão para ler os votos</h2><p>Confira se as regras do Firestore foram publicadas e se você entrou com o usuário administrador.</p><button class="btn" data-a="sair">Sair</button></div>'}));
 });
-function mostrar(L){
-const cnt={};let B=0,N=0;
-L.forEach(x=>(x.votos||[]).forEach(v=>{if(v==="Voto em branco")B++;else if(v==="Voto nulo")N++;else cnt[v]=(cnt[v]||0)+1}));
-const R=Object.entries(cnt).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"pt")),V=R.reduce((s,x)=>s+x[1],0),mx=R[0]?R[0][1]:0;
-const k=(c,v,l)=>'<div class="kpi '+c+'"><b>'+v+'</b><span>'+l+'</span></div>';
-let h='<p class="live">● Ao vivo · atualiza sozinho a cada novo voto · <button class="btn" id="sair" style="padding:4px 10px;font-size:.8rem">Sair</button></p>';
-h+='<div class="kpis">'+k("",L.length,"Participantes")+k("v",V,"Votos válidos")+k("b",B,"Votos em branco")+k("n",N,"Votos nulos")+'</div>';
-const t3=R.slice(0,3);
-h+='<div class="card"><h2>Mais votados</h2>'+(t3.length?'<div class="pod">'+t3.map((x,i)=>'<div><b>'+(i+1)+'º</b>'+esc(x[0])+'<br><small>'+x[1]+' votos · '+pct(x[1],V)+'</small></div>').join("")+'</div>':'<p class="mut">Ainda sem votos.</p>')+'</div>';
-h+='<div class="card"><h2>Apuração completa <small class="mut">(só aparece quem recebeu voto)</small></h2>'+R.map((x,i)=>'<div class="row'+(i<3?' p3':'')+'"><div class="nm">'+esc(x[0])+'</div><div class="bw"><i style="width:'+(mx?x[1]/mx*100:0)+'%"></i></div><div class="v">'+x[1]+' · '+pct(x[1],V)+'</div></div>').join("")+'</div>';
-h+='<div class="card"><h2>Quem já votou ('+L.length+')</h2><div class="tw"><table><tr><th>Quando</th><th>Quem</th><th>Votos</th></tr>'+(L.map(x=>'<tr><td>'+(x.t&&x.t.toDate?esc(x.t.toDate().toLocaleString("pt-BR")):"")+'</td><td>'+esc(x.quem||"")+'</td><td>'+esc((x.votos||[]).join(" · "))+'</td></tr>').join("")||'<tr><td colspan="3" class="mut">Nenhum voto ainda.</td></tr>')+'</table></div></div>';
-A.innerHTML=h;document.getElementById("sair").onclick=()=>signOut(auth);
-}
+function calc(){const S=DATA[tipo],cnt={};let B=0,N=0;
+S.forEach(s=>s.v.forEach(c=>{if(c==="B")B++;else if(c==="N")N++;else if(c)cnt[c]=(cnt[c]||0)+1}));
+const V=Object.values(cnt).reduce((a,b)=>a+b,0);
+return{S,V,B,N,tot:V+B+N,rank:Object.values(CAND[tipo]).map(x=>({...x,votos:cnt[x.n]||0})).sort((a,b)=>b.votos-a.votos||a.n.localeCompare(b.n))}}
+function donut(a,b,c){const t=a+b+c||1,R=42,C=2*Math.PI*R;let o=0;const sg=(v,col)=>{const l=v/t*C,e='<circle r="'+R+'" cx="55" cy="55" fill="none" stroke="'+col+'" stroke-width="16" stroke-dasharray="'+l+' '+(C-l)+'" stroke-dashoffset="'+(-o)+'" transform="rotate(-90 55 55)"/>';o+=l;return e};
+return '<svg viewBox="0 0 110 110" width="130" height="130" role="img" aria-label="Composição dos votos"><circle r="'+R+'" cx="55" cy="55" fill="none" stroke="#e3d8b8" stroke-width="16"/>'+sg(a,"#2fa3a0")+sg(b,"#9ca3af")+sg(c,"#d9607a")+'<text x="55" y="52" text-anchor="middle" font-size="16" font-weight="800" fill="#1b241f">'+(a+b+c)+'</text><text x="55" y="66" text-anchor="middle" font-size="8" fill="#6b7468">votos</text></svg>'}
+function av(s){const f=[],n=s.v.filter(c=>c&&c!=="B"&&c!=="N");
+if(new Set(n).size<n.length)f.push("Mesmo candidato em 2 votos");
+if(tipo==="voluntarios"){const l=LID.find(x=>x[0]===s.who),p=l&&l[1]?P.find(q=>q.nome===l[1]):null;if(p&&s.v.includes(p.n))f.push("Líder votou em si mesmo")}
+else if(s.lider&&s.v.includes(s.lider))f.push("Líder votou em si mesmo");
+if(s.v.filter(Boolean).length<3)f.push("Votos incompletos");return f}
+function vApuracao(){const d=calc(),n=d.S.length,esp=+ESP[tipo]||0,k=(c,v,l)=>'<div class="kpi '+c+'"><b>'+v+'</b><span>'+l+'</span></div>';
+let h='<div class="kpis">'+k("",n,"Participantes")+k("v",d.V,"Votos válidos")+k("b",d.B,"Votos em branco")+k("n",d.N,"Votos nulos")+(esp?k("",pct(n,esp),"Participação ("+n+" de "+esp+")"):"")+'</div>';
+const top=d.rank.filter(x=>x.votos>0).slice(0,3),mx=d.rank[0]?d.rank[0].votos:0;
+h+='<div class="grid2"><div class="card"><h2>Mais votados · 3 primeiros</h2>'+(top.length?'<div class="pod">'+top.map((x,i)=>'<div><b>'+(i+1)+'º</b>'+esc(x.nome)+'<br><small>'+x.votos+' votos · '+pct(x.votos,d.V)+'</small></div>').join("")+'</div>':'<p class="mut">Ainda sem votos.</p>')+'</div>'
++'<div class="card"><h2>Composição dos votos</h2><div class="comp">'+donut(d.V,d.B,d.N)+'<div><div><span class="tag o">●</span> Válidos '+pct(d.V,d.tot)+'</div><div><span class="tag" style="background:#e5e7eb;color:#374151">●</span> Brancos '+pct(d.B,d.tot)+'</div><div><span class="tag e">●</span> Nulos '+pct(d.N,d.tot)+'</div></div></div></div></div>';
+h+='<div class="card"><h2>Apuração por '+(tipo==="lideres"?"líder":"voluntário")+' <small class="mut">(% sobre votos válidos)</small></h2>'+d.rank.map((x,i)=>{const t=i<3&&x.votos;return '<div class="row'+(t?' p3':'')+'"><div class="nm"><b>'+x.n+'</b> '+esc(x.nome)+(t?'<span class="sel">TOP '+(i+1)+'</span>':'')+(x.dep?'<small>'+esc(x.dep)+'</small>':'')+'</div><div class="bw"><i style="width:'+(mx?x.votos/mx*100:0)+'%"></i></div><div class="v">'+x.votos+' · '+pct(x.votos,d.V)+'</div></div>'}).join("")+'</div>';
+return h}
+function vPart(){const S=DATA[tipo];
+let h='<div class="card"><h2>Participação esperada</h2><label>Total esperado de participantes nesta votação:<input type="number" min="0" id="esp" value="'+esc(ESP[tipo])+'" style="max-width:140px"></label><p class="mut">Informe para ver a porcentagem de participação na aba Apuração.</p></div>';
+if(tipo==="voluntarios"){const v=LID.map(x=>({n:x[0],ok:S.some(s=>s.who===x[0])})),ok=v.filter(x=>x.ok).length;
+h+='<div class="card"><h2>Líderes que já votaram: '+ok+' de '+v.length+' ('+pct(ok,v.length)+')</h2><div class="bw"><i style="width:'+(v.length?ok/v.length*100:0)+'%;background:var(--azul)"></i></div><div style="margin-top:10px">'+v.map(x=>'<span class="tag '+(x.ok?'o':'w')+'">'+(x.ok?'✓ ':'⏳ ')+esc(x.n)+'</span>').join("")+'</div></div>'}
+else{const m={};S.forEach(s=>{const k=s.dep||"(sem departamento)";m[k]=(m[k]||0)+1});const e=Object.entries(m).sort((a,b)=>b[1]-a[1]),mx=e[0]?e[0][1]:0;
+h+='<div class="card"><h2>Participantes por departamento</h2>'+(e.length?e.map(x=>'<div class="row"><div class="nm" style="flex-basis:38%">'+esc(x[0])+'</div><div class="bw"><i style="width:'+x[1]/mx*100+'%"></i></div><div class="v">'+x[1]+'</div></div>').join(""):'<p class="mut">Sem dados.</p>')+'</div>'}
+return h}
+function tabela(){const q=norm(busca),rows=DATA[tipo].filter(s=>!q||norm(s.who+" "+s.dep+" "+s.raw.join(" ")).includes(q));
+return '<table><tr><th>Data</th><th>Quem votou</th><th>1º voto</th><th>2º voto</th><th>3º voto</th><th>Conferência</th><th></th></tr>'+(rows.length?rows.map(s=>'<tr><td>'+(s.t?esc(s.t.toLocaleString("pt-BR")):"")+'</td><td>'+esc(s.who)+(s.dep?'<br><small class="mut">'+esc(s.dep)+'</small>':'')+'</td>'+[0,1,2].map(i=>'<td>'+esc(s.raw[i]||"—")+'</td>').join("")+'<td>'+(av(s).map(f=>'<span class="tag e">'+f+'</span>').join("")||'<span class="tag o">ok</span>')+'</td><td><button class="btn s" data-a="del" data-id="'+esc(s.id)+'">Excluir</button></td></tr>').join(""):'<tr><td colspan="7" class="mut">Nenhum registro.</td></tr>')+'</table>'}
+function vReg(){return '<div class="card"><h2>Formulários preenchidos ('+DATA[tipo].length+')</h2><p class="mut">Excluir apaga o voto do banco, por exemplo quando alguém votou com o nome errado. Depois disso a pessoa pode votar de novo.</p><input type="search" id="bq" placeholder="Buscar nome, departamento ou voto" value="'+esc(busca)+'"><div class="tw" id="tb">'+tabela()+'</div><button class="btn" data-a="csv">Baixar planilha (CSV)</button></div>'}
+function vAl(){const W=DATA[tipo].map(s=>({s,f:av(s)})).filter(x=>x.f.length);
+return '<div class="card"><h2>Conferência ('+W.length+')</h2><p class="mut">Avisos para você conferir: mesmo candidato em dois votos, votos incompletos e líder votando em si mesmo. Nada é anulado automaticamente.</p>'+(W.length?'<div class="tw"><table><tr><th>Quem</th><th>Avisos</th></tr>'+W.map(x=>'<tr><td>'+esc(x.s.who)+'</td><td>'+x.f.map(f=>'<span class="tag e">'+f+'</span>').join("")+'</td></tr>').join("")+'</table></div>':'<p><span class="tag o">Nada a conferir</span></p>')+'</div>'}
+const VIEWS={apuracao:vApuracao,part:vPart,reg:vReg,al:vAl};
+function render(){if(!logado)return;
+A.innerHTML='<div class="bar"><div class="seg">'+Object.keys(NOMES).map(k=>'<button data-a="tipo" data-v="'+k+'" class="'+(k===tipo?"on":"")+'">'+NOMES[k]+'</button>').join("")+'</div><div class="tabs">'+ABAS.map(a=>'<button data-a="aba" data-v="'+a[0]+'" class="'+(a[0]===aba?"on":"")+'">'+a[1]+'</button>').join("")+'</div><span class="live">● Ao vivo</span><button class="btn s" data-a="sair">Sair</button></div>'+VIEWS[aba]()}
+function refresh(){const f=document.activeElement;if(f&&f.id==="bq"){document.getElementById("tb").innerHTML=tabela();return}render()}
+async function excluir(id){const s=DATA[tipo].find(x=>x.id===id);if(!s||!confirm("Excluir o voto de "+s.who+"? Isso não pode ser desfeito."))return;
+try{await deleteDoc(doc(db,COL[tipo],id))}catch(e){alert("Não foi possível excluir. Atualize as regras do Firestore para permitir exclusão pelo administrador.")}}
+function csv(){const q=s=>'"'+String(s).replace(/"/g,'""')+'"',R2=[["Data","Quem","Departamento","Voto 1","Voto 2","Voto 3"].map(q).join(";")].concat(DATA[tipo].map(s=>[s.t?s.t.toLocaleString("pt-BR"):"",s.who,s.dep,s.raw[0]||"",s.raw[1]||"",s.raw[2]||""].map(q).join(";")));
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+R2.join("\n")],{type:"text/csv;charset=utf-8"}));a.download="votos-"+tipo+".csv";a.click()}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
+if(a==="tipo"){tipo=b.dataset.v;render()}else if(a==="aba"){aba=b.dataset.v;render()}else if(a==="sair")signOut(auth);else if(a==="csv")csv();else if(a==="del")excluir(b.dataset.id)});
+document.addEventListener("input",e=>{if(e.target.id==="bq"){busca=e.target.value;document.getElementById("tb").innerHTML=tabela()}});
+document.addEventListener("change",e=>{if(e.target.id==="esp"){ESP[tipo]=e.target.value;try{localStorage.setItem("painel_esp",JSON.stringify(ESP))}catch(x){}render()}});
 </script></body></html>
