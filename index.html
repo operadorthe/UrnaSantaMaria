@@ -62,7 +62,7 @@ button,input,select{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-s
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head>
 <body>
-<header class="top"><img src="logo-horizontal.png" alt="A Estação"><p>Igreja Verbo da Vida - Santa Maria · escolha os 3 melhores voluntários, é só uma brincadeira entre nós</p></header>
+<header class="top"><img src="logo-horizontal.png" alt="A Estação"><p>Igreja Verbo da Vida - Santa Maria · escolha os 3 melhores voluntários</p></header>
 <main class="wrap">
 <section class="urna" aria-label="Urna eletrônica"><div class="tela" id="tela"></div>
 <div class="tec"><img src="icone.png" alt=""><div class="grid3" id="grid"></div>
@@ -146,7 +146,7 @@ if(r==="ok"){marcar();beep(600,150);setTimeout(()=>beep(600,350),180);$("mb").in
 else $("mb").innerHTML='<h2>Não foi possível enviar</h2><p>Verifique sua internet e tente de novo.</p><button class="btn pri" onclick="enviar()">Tentar de novo</button>';
 }
 function novo(){$("modal").style.display="none";d="";modo="v";render()}
-const REGRAS='<div class="regras"><b>Regras da brincadeira</b><ol><li><b>Cada líder tem direito a 3 votos.</b> Escolha os voluntários que mais se destacaram, de qualquer departamento.</li><li><b>Líder não vota em si mesmo.</b> Se você também é voluntário, indique outras pessoas.</li></ol></div>';
+const REGRAS='<div class="regras"><b>Regras</b><ol><li><b>Cada líder tem direito a 3 votos.</b> Escolha os voluntários que mais se destacaram, de qualquer departamento.</li><li><b>Líder não vota em si mesmo.</b> Se você também é voluntário, indique outras pessoas.</li></ol></div>';
 function tn(){$("ou").style.display=$("ld").value==="o"?"block":"none"}
 function abrirIdent(){
 $("mb").innerHTML='<h2>Antes de votar</h2>'+REGRAS
