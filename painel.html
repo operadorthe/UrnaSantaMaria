@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#151e1a">
+<title>Painel de apuração - A Estação</title>
+<link rel="icon" href="icone.png">
+<style>
+:root{color-scheme:dark;--verde:#151e1a;--verde2:#27382e;--creme:#fffad5;--pess:#fbe5d5;--lar:#e8873a;--rosa:#d9607a;--azul:#2fa3a0;--card:#f7f0dc;--tx:#1b241f;--mut:#6b7468;--line:#ded5b8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--verde);color:var(--creme);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.4;padding-bottom:env(safe-area-inset-bottom)}
+.top{background:linear-gradient(rgba(21,30,26,.45),rgba(21,30,26,.92)),url(fundo.jpg) center/cover;padding:calc(16px + env(safe-area-inset-top)) 16px 18px;text-align:center;border-bottom:3px solid var(--lar)}
+.top img{height:clamp(40px,10vw,60px)}.top p{margin:6px 0 0;font-size:.9rem;color:var(--pess)}
+main{max-width:1000px;margin:0 auto;padding:14px 12px 40px}
+.card{background:var(--card);color:var(--tx);border-radius:16px;padding:16px;margin-bottom:12px}
+.card h2{margin:0 0 10px;font-size:1.05rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:var(--card);color:var(--tx);border-radius:14px;padding:12px 14px;border-left:5px solid var(--lar)}
+.kpi b{display:block;font-size:1.8rem;line-height:1.1}.kpi span{font-size:.78rem;color:var(--mut)}
+.kpi.v{border-color:var(--azul)}.kpi.b{border-color:#9ca3af}.kpi.n{border-color:var(--rosa)}
+.pod{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end}
+.pod div{background:rgba(232,135,58,.16);border:2px solid var(--lar);border-radius:14px;padding:10px 6px;text-align:center;font-size:.85rem}
+.pod div:nth-child(1){order:2;padding-top:22px}.pod div:nth-child(2){order:1}.pod div:nth-child(3){order:3}.pod b{display:block;font-size:1.5rem}
+.row{display:flex;align-items:center;gap:10px;margin:8px 0}.row .nm{flex:0 0 40%;min-width:0;font-size:.9rem}
+.bw{flex:1;background:rgba(0,0,0,.12);height:16px;border-radius:8px;overflow:hidden}.bw i{display:block;height:100%;background:var(--lar);border-radius:8px}
+.row.top .bw i{background:var(--azul)}.row .v{flex:0 0 84px;text-align:right;font-weight:700;font-size:.85rem}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:.74rem;color:var(--mut)}
+.mut{color:var(--mut)}.live{font-size:.82rem;margin:0 0 10px;color:var(--pess)}
+.btn{background:var(--verde);color:var(--creme);border:2px solid var(--lar);border-radius:10px;padding:10px 16px;font:inherit;font-weight:800;cursor:pointer}
+.btn.pri{background:var(--lar);color:#161616}
+input{width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);font:inherit;background:#fff;color:var(--tx);margin:6px 0 10px}
+.er{color:#b3261e;font-weight:600;min-height:1.3em}
+:focus-visible{outline:3px solid #e7c340;outline-offset:2px}
+@media(max-width:560px){.row{flex-wrap:wrap}.row .nm{flex-basis:100%}}
+</style></head>
+<body>
+<header class="top"><img src="logo-horizontal.png" alt="A Estação"><p>Painel de apuração · uso exclusivo do responsável</p></header>
+<main id="app"></main>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getFirestore,collection,onSnapshot,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyBNoRLCeJt4AZIgDwY_FV1de3jWcIPGjZI",authDomain:"urnaestacao.firebaseapp.com",projectId:"urnaestacao",storageBucket:"urnaestacao.firebasestorage.app",messagingSenderId:"329046413879",appId:"1:329046413879:web:14ec9a1e677a202bca65b2"};
+const COLECAO="votos_voluntarios";
+const auth=getAuth(initializeApp(cfg)),db=getFirestore(auth.app),A=document.getElementById("app");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct=(a,b)=>b?(a/b*100).toFixed(1).replace(".",",")+"%":"0%";
+let un=null;
+function login(msg){
+A.innerHTML='<div class="card" style="max-width:420px;margin:20px auto"><h2>Entrar como administrador</h2><label>E-mail<input id="em" type="email" autocomplete="username"></label><label>Senha<input id="se" type="password" autocomplete="current-password"></label><p class="er" id="er">'+esc(msg||"")+'</p><button class="btn pri" id="go">Entrar</button></div>';
+const ir=async()=>{try{await signInWithEmailAndPassword(auth,document.getElementById("em").value.trim(),document.getElementById("se").value)}catch(e){document.getElementById("er").textContent="Não foi possível entrar. Confira o e-mail e a senha."}};
+document.getElementById("go").onclick=ir;document.getElementById("se").onkeydown=e=>{if(e.key==="Enter")ir()};
+}
+onAuthStateChanged(auth,u=>{
+if(un){un();un=null}
+if(!u)return login();
+A.innerHTML='<p class="live">Carregando votos…</p>';
+un=onSnapshot(query(collection(db,COLECAO),orderBy("t","desc")),s=>mostrar(s.docs.map(d=>d.data())),()=>{A.innerHTML='<div class="card"><h2>Sem permissão para ler os votos</h2><p>Confira se as regras do Firestore foram publicadas e se você entrou com o usuário administrador.</p><button class="btn" id="sair">Sair</button></div>';document.getElementById("sair").onclick=()=>signOut(auth)});
+});
+function mostrar(L){
+const cnt={};let B=0,N=0;
+L.forEach(x=>(x.votos||[]).forEach(v=>{if(v==="Voto em branco")B++;else if(v==="Voto nulo")N++;else cnt[v]=(cnt[v]||0)+1}));
+const R=Object.entries(cnt).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"pt")),V=R.reduce((s,x)=>s+x[1],0),mx=R[0]?R[0][1]:0;
+const k=(c,v,l)=>'<div class="kpi '+c+'"><b>'+v+'</b><span>'+l+'</span></div>';
+let h='<p class="live">● Ao vivo · atualiza sozinho a cada novo voto · <button class="btn" id="sair" style="padding:4px 10px;font-size:.8rem">Sair</button></p>';
+h+='<div class="kpis">'+k("",L.length,"Participantes")+k("v",V,"Votos válidos")+k("b",B,"Votos em branco")+k("n",N,"Votos nulos")+'</div>';
+const t3=R.slice(0,3);
+h+='<div class="card"><h2>Mais votados</h2>'+(t3.length?'<div class="pod">'+t3.map((x,i)=>'<div><b>'+(i+1)+'º</b>'+esc(x[0])+'<br><small>'+x[1]+' votos · '+pct(x[1],V)+'</small></div>').join("")+'</div>':'<p class="mut">Ainda sem votos.</p>')+'</div>';
+h+='<div class="card"><h2>Apuração completa <small class="mut">(só aparece quem recebeu voto)</small></h2>'+R.map((x,i)=>'<div class="row'+(i<3?' top':'')+'"><div class="nm">'+esc(x[0])+'</div><div class="bw"><i style="width:'+(mx?x[1]/mx*100:0)+'%"></i></div><div class="v">'+x[1]+' · '+pct(x[1],V)+'</div></div>').join("")+'</div>';
+h+='<div class="card"><h2>Quem já votou ('+L.length+')</h2><div class="tw"><table><tr><th>Quando</th><th>Quem</th><th>Votos</th></tr>'+(L.map(x=>'<tr><td>'+(x.t&&x.t.toDate?esc(x.t.toDate().toLocaleString("pt-BR")):"")+'</td><td>'+esc(x.quem||"")+'</td><td>'+esc((x.votos||[]).join(" · "))+'</td></tr>').join("")||'<tr><td colspan="3" class="mut">Nenhum voto ainda.</td></tr>')+'</table></div></div>';
+A.innerHTML=h;document.getElementById("sair").onclick=()=>signOut(auth);
+}
+</script></body></html>
